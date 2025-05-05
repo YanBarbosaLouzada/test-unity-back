@@ -11,6 +11,13 @@ app.post('/api/dados', (req, res) => {
     res.json({ status: 'Recebido com sucesso' });
 });
 
+//quero cadastrar um novo usuario
+app.post('/api/cadastrar', (req, res) => {
+    const msgReact = req.body.msg;
+    console.log('Recebido do React:', msgReact);
+    res.json({ resposta: 'Oi Unity, recebi isso: ' + msgReact });
+});
+
 app.listen(3001, () => {
     console.log('Servidor rodando na porta 3001');
 });
