@@ -8,7 +8,7 @@ const wss = new WebSocketServer({ port: 8080 });
 let position = { x: 0, y: 0 };
 
 wss.on('connection', (ws) => {
-    console.log('Cliente conectado');
+    console.log('Cliente conectado'); 
 
     // Envia a posição inicial
     ws.send(JSON.stringify(position));
