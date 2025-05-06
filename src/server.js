@@ -5,12 +5,6 @@ import { WebSocketServer } from 'ws';
 import https from 'https';
 import fs from 'fs';
 
-// Certificados para SSL (caso precise)
-const server = https.createServer({
-    key: fs.readFileSync('path/to/your/private-key.pem'),
-    cert: fs.readFileSync('path/to/your/certificate.pem'),
-});
-
 const wss = new WebSocketServer({ server });
 
 let position = { x: 0, y: 0 };
