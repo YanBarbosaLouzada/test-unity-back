@@ -2,10 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import testRouter from "./routes/testRouter.js";
 import { WebSocketServer } from 'ws';
-import https from 'https';
-import fs from 'fs';
 
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ port: 8080 });
 
 let position = { x: 0, y: 0 };
 
@@ -16,7 +14,10 @@ wss.on('connection', (ws) => {
     ws.send(JSON.stringify(position));
 
     ws.on('message', (message) => {
+        console.log('Mensagem recebida:', message);
+
         const data = JSON.parse(message);
+
         if (data.action === 'move') {
             switch (data.direction) {
                 case 'up':
@@ -33,7 +34,7 @@ wss.on('connection', (ws) => {
                     break;
             }
 
-            // Envia nova posição para todos os clientes
+            // Envia nova posição pra todos os clientes
             wss.clients.forEach((client) => {
                 if (client.readyState === ws.OPEN) {
                     client.send(JSON.stringify(position));
@@ -47,10 +48,8 @@ wss.on('connection', (ws) => {
     });
 });
 
-// Inicia o servidor HTTPS
-server.listen(8080, () => {
-    console.log('Servidor WebSocket rodando na porta 8080');
-});
+console.log('Servidor WebSocket rodando na porta 8080');
+
 
 
 const app = express();
