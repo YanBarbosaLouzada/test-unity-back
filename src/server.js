@@ -2,11 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import testRouter from "./routes/testRouter.js";
 import { WebSocketServer } from 'ws';
-import https from 'https';
-import fs from 'fs';
-
+import { createServer } from "http";
 // Certificados para SSL (caso precise)
-const server = https.createServer();
+const server = createServer();
 
 const wss = new WebSocketServer({ server });
 
@@ -68,4 +66,3 @@ app.use('/api', testRouter);
 app.listen(3001, () => {
     console.log('Servidor rodando na porta 3001');
 });
-    
